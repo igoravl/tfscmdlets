@@ -4,6 +4,7 @@ using WebApiTeamProject = Microsoft.TeamFoundation.Core.WebApi.TeamProject;
 using WebApiProcess = Microsoft.TeamFoundation.Core.WebApi.Process;
 using TfsCmdlets.Util;
 using System;
+using System.Linq;
 using TfsCmdlets.Extensions;
 using Microsoft.VisualStudio.Services.Operations;
 using System.Threading;
@@ -36,7 +37,7 @@ namespace TfsCmdlets.Cmdlets.TeamProject
         /// </summary>
         [Parameter()]
         [ValidateSet("Git", "Tfvc")]
-        public string SourceControl { get; set; }
+        public string SourceControl { get; set; } = "Git";
 
         /// <summary>
         /// Specifies the process template on which the new team project is based. 
@@ -74,7 +75,7 @@ namespace TfsCmdlets.Cmdlets.TeamProject
                     done = true;
                     break;
                 }
-                case string s:
+                case string s when !string.IsNullOrEmpty(s):
                 {
                     template = GetItem<WebApiProcess>();
                     ErrorUtil.ThrowIfNotFound(template, nameof(NewTeamProject.ProcessTemplate), processTemplate);
@@ -83,7 +84,12 @@ namespace TfsCmdlets.Cmdlets.TeamProject
                 }
                 default:
                 {
-                    throw new ArgumentException($"Invalid or non-existent process template '{processTemplate}'");
+                    Log("Process template not informed. Defaulting to collection's default process.");
+
+                    template = GetItems<WebApiProcess>().Where(p => p.IsDefault).FirstOrDefault();
+                    done = true;
+
+                    break;
                 }
             }
 
