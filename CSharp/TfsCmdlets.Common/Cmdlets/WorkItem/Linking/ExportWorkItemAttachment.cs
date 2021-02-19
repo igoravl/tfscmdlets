@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
-using System.Text;
 using WebApiWorkItem = Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models.WorkItem;
 using TfsCmdlets.Extensions;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
-using TfsCmdlets.Util;
 using System.IO;
 using Microsoft.VisualStudio.Services.WebApi;
 
 namespace TfsCmdlets.Cmdlets.WorkItem.Linking
 {
+    /// <summary>
+    /// Downloads one or more attachments from a work item.
+    /// </summary>
     [Cmdlet(VerbsData.Export, "TfsWorkItemAttachment", SupportsShouldProcess = true)]
     public class ExportWorkItemAttachment: CmdletBase
     {
