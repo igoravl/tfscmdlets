@@ -89,6 +89,8 @@ namespace TfsCmdlets.Cmdlets.WorkItem.Linking
 
             if(!Directory.Exists(outputDir))
             {
+                if(!ShouldProcess(outputDir, "Create directory")) return;
+                
                 if(!Force && !ShouldContinue($"Do you want to create destination directory '{outputDir}'?"))
                 {
                     throw new ArgumentException("Destination path invalid or non-existent");
