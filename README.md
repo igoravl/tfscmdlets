@@ -3,7 +3,7 @@ TfsCmdlets
 
 PowerShell Cmdlets for Azure DevOps and Team Foundation Server
 
-## Whats is TfsCmdlets?
+## What is TfsCmdlets?
 
 TfsCmdlets is a PowerShell module which provides many commands ("cmdlets" in PowerShell parlance) to simplify automated interaction with Azure DevOps (Server 2019+ and Services) and Team Foundation Server (up to 2018). 
 
